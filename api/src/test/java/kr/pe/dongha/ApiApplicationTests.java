@@ -1,4 +1,4 @@
-package api.dongha.pe.kr;
+package kr.pe.dongha;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

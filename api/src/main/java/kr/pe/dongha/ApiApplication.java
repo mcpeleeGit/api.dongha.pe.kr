@@ -1,4 +1,4 @@
-package api.dongha.pe.kr;
+package kr.pe.dongha;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
