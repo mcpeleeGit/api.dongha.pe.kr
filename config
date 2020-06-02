@@ -1,0 +1,5 @@
+Host api.dongha.pe.kr
+HostName 15.165.216.129
+User ec2-user
+IndentifyFile apidonghapekr.pem
+
