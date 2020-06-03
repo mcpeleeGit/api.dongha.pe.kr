@@ -1,0 +1,46 @@
+language: java
+jdk:
+  - openjdk8
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+script: "./gradlew clean build"
+
+before_deploy:
+  - zip -r dongha-webservice *
+  - mkdir -p deploy
+  - mv dongha-webservice.zip deploy/dongha-webservice.zip 
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY 
+    secret_access_key: $AWS_SECRET_KEY 
+    bucket: dongha-build 
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private 
+    local_dir: deploy 
+    wait-until-deployed: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: dongha-build
+    key: dongha-webservice.zip 
+    bundle_type: zip
+    application: dongha-webservice
+    deployment_group: dongha-webservice-group 
+    region: ap-northeast-2
+    wait-until-deployed: true
+
+notifications:
+  email:
+    recipients: 
+      - mcpelee@gmail.com
